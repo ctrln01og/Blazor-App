@@ -1,14 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using EmployeeManagement.Web.Models;
-using EmployeeManagement.Web.Services;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,19 +19,9 @@ namespace EmployeeManagement.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication("Identity.Application")
-                .AddCookie();
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddAutoMapper(typeof(EmployeeProfile));
-            services.AddHttpClient<IEmployeeService, EmployeeService>(client =>
-            {
-                client.BaseAddress = new Uri("https://localhost:44379/");
-            });
-            services.AddHttpClient<IDepartmentService, DepartmentService>(client =>
-            {
-                client.BaseAddress = new Uri("https://localhost:44379/");
-            });
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,8 +42,7 @@ namespace EmployeeManagement.Web
             app.UseStaticFiles();
 
             app.UseRouting();
-            app.UseAuthentication();
-            app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapBlazorHub();
