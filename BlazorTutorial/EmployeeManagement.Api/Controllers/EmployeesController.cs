@@ -64,7 +64,7 @@ namespace EmployeeManagement.Api.Controllers
 
                 var emp = employeeRepository.GetEmployeeByEmail(employee.Email);
 
-                if(emp != null)
+                if (emp != null)
                 {
                     ModelState.AddModelError("email", "Employee email already in use");
                     return BadRequest(ModelState);
@@ -101,6 +101,27 @@ namespace EmployeeManagement.Api.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     "Error updating data");
             }
+        }
+        [HttpDelete("{id:int}")]
+        public async Task<ActionResult<Employee>> DeleteEmployee(int id)
+        {
+            try
+            {
+                var employeeToDelete = await employeeRepository.GetEmployee(id);
+
+                if (employeeToDelete == null)
+                {
+                    return NotFound($"Employee with Id = {id} not found");
+                }
+
+                return await employeeRepository.DeleteEmployee(id);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error deleting data");
+            }
+        }
     }
 }
 
