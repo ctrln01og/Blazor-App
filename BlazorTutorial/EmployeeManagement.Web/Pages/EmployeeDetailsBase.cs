@@ -27,7 +27,8 @@ namespace EmployeeManagement.Web.Pages
         protected async override Task OnInitializedAsync()
         {
             Id = Id ?? "1";
-            Employee = await EmployeeService.GetEmployee(int.Parse(Id));
+            Employee =  await EmployeeService.GetEmployee(int.Parse(Id));
+
         }
         protected void Button_Click()
         {
@@ -44,8 +45,8 @@ namespace EmployeeManagement.Web.Pages
         }
 
         //protected void Mouse_Move(MouseEventArgs e)
-        //{
-        //Coordinates = $"X = {e.ClientX} Y = {e.ClientY}";
+        // {
+        //Coordinates = $"X = {e.ClientX} Y = {e.ClientY}"
         //}
     }
 }

@@ -40,8 +40,9 @@ namespace EmployeeManagement.Api.Controllers
                     "Error retrieving data from the database");
             }
         }
+    
 
-        [HttpGet]
+    [HttpGet]
         public async Task<ActionResult> GetEmployees()
         {
             try
@@ -77,13 +78,14 @@ namespace EmployeeManagement.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Employee>>
-            CreateEmployee([FromBody] Employee employee)
+        public async Task<ActionResult<Employee>> CreateEmployee(Employee employee)
         {
             try
             {
                 if (employee == null)
+                {
                     return BadRequest();
+                }
 
                 var emp = employeeRepository.GetEmployeeByEmail(employee.Email);
 
@@ -95,16 +97,17 @@ namespace EmployeeManagement.Api.Controllers
 
                 var createdEmployee = await employeeRepository.AddEmployee(employee);
 
-                return CreatedAtAction(nameof(GetEmployee),
-                    new { id = createdEmployee.EmployeeId }, createdEmployee);
+                return CreatedAtAction(nameof(GetEmployee), new { id = createdEmployee.EmployeeId },
+                    createdEmployee);
             }
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error creating new employee record");
+                    "Error creating employee");
             }
         }
-        [HttpPut("{id:int}")]
+
+        [HttpPut("{id}")]
         public async Task<ActionResult<Employee>> UpdateEmployee(int id, Employee employee)
         {
             try
@@ -125,6 +128,7 @@ namespace EmployeeManagement.Api.Controllers
                     "Error updating data");
             }
         }
+
         [HttpDelete("{id:int}")]
         public async Task<ActionResult<Employee>> DeleteEmployee(int id)
         {
