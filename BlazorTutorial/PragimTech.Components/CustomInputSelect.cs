@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Components.Forms;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EmployeeManagement.Web.Pages
+namespace PragimTech.Components
 {
     public class CustomInputSelect<TValue> : InputSelect<TValue>
     {
@@ -36,3 +35,4 @@ namespace EmployeeManagement.Web.Pages
         }
     }
 }
+
